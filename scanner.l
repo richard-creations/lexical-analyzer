@@ -34,7 +34,7 @@ YYSTYPE yylval;  // manually declared for pp1, later Yacc provides
 struct yyltype yylloc; // manually dclared for pp1, later Yacc provides
 
 /* Macro: YY_USER_ACTION 
- * ---------------------
+ * ------------------i---
  * This flex built-in macro can be defined to provide an action which is
  * always executed prior to any matched rule's action. Basically, it is
  * a way of having a piece of code common to all actions factored out to
@@ -45,7 +45,8 @@ struct yyltype yylloc; // manually dclared for pp1, later Yacc provides
  */
 static void DoBeforeEachAction(); 
 #define YY_USER_ACTION DoBeforeEachAction();
-
+int line_num =1;
+int col_num = 1;
 %}
 
  /* The section before the first %% is the Definitions section of the lex
@@ -55,16 +56,65 @@ static void DoBeforeEachAction();
   * entries in the Rules section later. 
   */
 
+DIGIT    [0-9]
+ID       [a-z][a-z0-9]*
+LETTER   [a-zA-Z]
 
 %%             /* BEGIN RULES SECTION */
  /* All patterns and actions should be placed between the start and stop
   * %% markers which delimit the Rules section. 
   */ 
  /* --------------------- Keywords ------------------------------- */
-"void"              { return T_Void;        }
-"int"               { return T_Int;         }
-[1-9][0-9]*	    { return T_IntConstant;  }
-[0-9]*\.[0-9]*      { return T_DoubleConstant; }
+[ \t\n]+          /* ignore whitespace */
+
+"="                 { return T_Equal;    }
+
+"&&"                { return T_And;      }
+
+"||"                { return T_Or;       }
+
+"<="                { return T_LessEqual; }
+
+"void"              { return T_Void;      }
+
+"int"               { return T_Int;       }
+
+"double"            { return T_Double;    }
+
+"while"             { return T_While;     }
+
+"for"               { return T_For;     }
+
+"string"            { return T_String;  }
+
+"this"              { return T_This;    }
+
+"class"             { return T_Class;    }
+
+"return"            { return T_Return;  }
+
+"else"              { return T_Else;    }
+
+{ID}                { /*yylval.identifier = strdup(yytext); */
+			                  return T_Identifier;  }
+
+{DIGIT}+	          { yylval.integerConstant = atoi(yytext);
+			                  return T_IntConstant;  }
+
+{DIGIT}+"."{DIGIT}* { return T_DoubleConstant; }
+
+"true"|"false"	    { yylval.boolConstant = (yytext[0] == 't');
+			                  return T_BoolConstant;}
+
+.		                {;}
+
+\"([^\\\"]|\\.)*\"  { yylval.stringConstant = yytext;
+                      return T_StringConstant; }
+
+"@"		              { ReportError::UnrecogChar(&yylloc, yytext[0]);}
+
+"\n"                { line_num++; col_num = 1; }
+
 %%
 /* The closing %% above marks the end of the Rules section and the beginning
  * of the User Subroutines section. All text from here to the end of the
@@ -89,6 +139,8 @@ void InitScanner()
 {
     PrintDebug("lex", "Initializing scanner");
     yy_flex_debug = false;
+    line_num = 1;
+    col_num = 1;
 }
 
 
@@ -99,4 +151,8 @@ void InitScanner()
  */
 static void DoBeforeEachAction()
 {
+    yylloc.first_line = line_num;
+    yylloc.first_column = col_num;
+    yylloc.last_column = col_num + yyleng - 1;
+    col_num += yyleng;
 }
