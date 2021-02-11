@@ -63,8 +63,8 @@ static void DoBeforeEachAction();
  /* --------------------- Keywords ------------------------------- */
 "void"              { return T_Void;        }
 "int"               { return T_Int;         }
-
-
+[1-9][0-9]*	    { return T_IntConstant;  }
+[0-9]*\.[0-9]*      { return T_DoubleConstant; }
 %%
 /* The closing %% above marks the end of the Rules section and the beginning
  * of the User Subroutines section. All text from here to the end of the
