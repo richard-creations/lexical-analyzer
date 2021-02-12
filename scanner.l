@@ -105,7 +105,7 @@ LETTER   [a-zA-Z]
 {ID}                { /*yylval.identifier = strdup(yytext); */
 			                  return T_Identifier;  }
 
-0[xX][0-9a-fA-F]+   { yylval.integerConstant = atoi(yytext);
+0[xX][0-9a-fA-F]+   { yylval.integerConstant = (int)strtol(yytext, NULL, 0);;
                         return T_IntConstant;  }
 
 {DIGIT}+	          { yylval.integerConstant = atoi(yytext);
