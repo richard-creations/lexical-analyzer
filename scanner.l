@@ -99,6 +99,9 @@ LETTER   [a-zA-Z]
 [-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)? { yylval.doubleConstant = strtof(yytext, NULL);
                                                     return T_DoubleConstant; }
 
+[-+]?[0-9]*\.([eE][-+]?[0-9]+)? { yylval.doubleConstant = strtof(yytext, NULL);
+                                                    return T_DoubleConstant; }
+
 {ID}                { /*yylval.identifier = strdup(yytext); */
 			                  return T_Identifier;  }
 
