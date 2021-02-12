@@ -104,7 +104,7 @@ LETTER   [a-zA-Z]
 {DIGIT}+	          { yylval.integerConstant = atoi(yytext);
 			                  return T_IntConstant;  }
 
-{DIGIT}+"."{DIGIT}* { yylval.doubleConstant = strtof(pend, NULL);
+{DIGIT}+"."{DIGIT}* { yylval.doubleConstant = strtof(yytext, NULL);
                         return T_DoubleConstant; }
 
 "true"|"false"	    { yylval.boolConstant = (yytext[0] == 't');
