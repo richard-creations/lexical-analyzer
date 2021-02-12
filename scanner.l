@@ -95,9 +95,10 @@ LETTER   [a-zA-Z]
 
 "else"              { return T_Else;    }
 
-[-+]?[0-9][.][0-9]{1,16}[eE]*[-+]*[0-9]{0,3} { yylval.doubleConstant = strtof(yytext, NULL);
+
+[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)? { yylval.doubleConstant = strtof(yytext, NULL);
                                                     return T_DoubleConstant; }
-                                                    
+
 {ID}                { /*yylval.identifier = strdup(yytext); */
 			                  return T_Identifier;  }
 
