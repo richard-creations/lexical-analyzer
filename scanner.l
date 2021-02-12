@@ -100,11 +100,12 @@ LETTER   [a-zA-Z]
 
 0[xX][0-9a-fA-F]+   { yylval.integerConstant = atoi(yytext);
                         return T_IntConstant;  }
-                        
+
 {DIGIT}+	          { yylval.integerConstant = atoi(yytext);
 			                  return T_IntConstant;  }
 
-{DIGIT}+"."{DIGIT}* { return T_DoubleConstant; }
+{DIGIT}+"."{DIGIT}* { yylval.doubleConstant = strtof(pend, NULL);
+                        return T_DoubleConstant; }
 
 "true"|"false"	    { yylval.boolConstant = (yytext[0] == 't');
 			                  return T_BoolConstant;}
