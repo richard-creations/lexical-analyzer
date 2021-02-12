@@ -110,6 +110,9 @@ LETTER   [a-zA-Z]
 "true"|"false"	    { yylval.boolConstant = (yytext[0] == 't');
 			                  return T_BoolConstant;}
 
+[-+]?[0-9][.][0-9]{1,16}[eE]*[-+]*[0-9]{0,3} { yylval.doubleConstant = strtof(yytext, NULL);
+                                                    return T_DoubleConstant; }
+
 .		                {;}
 
 \"([^\\\"]|\\.)*\"  { yylval.stringConstant = yytext;
