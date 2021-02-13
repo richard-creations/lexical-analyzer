@@ -106,9 +106,10 @@ LETTER   [a-zA-Z]
 
 "<="                { return T_LessEqual; }
 
-"<="                { return T_GreaterEqual}
+"<="                { return T_GreaterEqual;}
 
-"=="                { return T_Equal}
+"=="                { return T_Equal;}
+
 "+"|"-"|"*"|"/"|"'"|"<"|">"|")"|"("|"}"|"{"|"="     { return yytext[0]; }
 
 
