@@ -100,11 +100,11 @@ LETTER   [a-zA-Z]
 
 "break"             { return T_Break; }
 
-"extends"           { return T_Extends }
+"extends"           { return T_Extends; }
 
-"implements"        { return T_Implements }
+"implements"        { return T_Implements; }
 
-"interface"         { return T_Interface }
+"interface"         { return T_Interface; }
 
 [-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)? { yylval.doubleConstant = strtof(yytext, NULL);
                                                     return T_DoubleConstant; }
