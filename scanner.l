@@ -65,8 +65,6 @@ LETTER   [a-zA-Z]
   * %% markers which delimit the Rules section. 
   */ 
  /* --------------------- Keywords ------------------------------- */
- 
-/*[ \t\n]+           ignore whitespace */
 
 "="                 { return T_Equal;    }
 
