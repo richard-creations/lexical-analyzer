@@ -106,6 +106,10 @@ LETTER   [a-zA-Z]
 
 "interface"         { return T_Interface; }
 
+"if"                { return T_If; }
+
+"true"|"false"	    { yylval.boolConstant = (yytext[0] == 't');
+			                  return T_BoolConstant;}
 [-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)? { yylval.doubleConstant = strtof(yytext, NULL);
                                                     return T_DoubleConstant; }
 
@@ -124,8 +128,7 @@ LETTER   [a-zA-Z]
 {DIGIT}+"."{DIGIT}* { yylval.doubleConstant = strtof(yytext, NULL);
                         return T_DoubleConstant; }
 
-"true"|"false"	    { yylval.boolConstant = (yytext[0] == 't');
-			                  return T_BoolConstant;}
+
 
 .		                {;}
 
