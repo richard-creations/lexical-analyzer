@@ -66,13 +66,9 @@ LETTER   [a-zA-Z]
   */ 
  /* --------------------- Keywords ------------------------------- */
 
-"="                 { return T_Equal;    }
-
 "&&"                { return T_And;      }
 
 "||"                { return T_Or;       }
-
-"<="                { return T_LessEqual; }
 
 "void"              { return T_Void;      }
 
@@ -108,7 +104,12 @@ LETTER   [a-zA-Z]
 
 "if"                { return T_If; }
 
-"+"|"-"|"*"|"/"|"'"|"<"|">"|")"|"("|"}"|"{"     { return yytext[0]; }
+"<="                { return T_LessEqual; }
+
+"<="                { return T_GreaterEqual}
+
+"=="                { return T_Equal}
+"+"|"-"|"*"|"/"|"'"|"<"|">"|")"|"("|"}"|"{"|"="     { return yytext[0]; }
 
 
 "true"|"false"	    { yylval.boolConstant = (yytext[0] == 't');
