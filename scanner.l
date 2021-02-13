@@ -108,6 +108,9 @@ LETTER   [a-zA-Z]
 
 "if"                { return T_If; }
 
+"+"|"-"|"/"|"<"|">"|";"|"}"|"{"|"!"|"'"|"("|"("        { return yytext[0] }
+
+
 "true"|"false"	    { yylval.boolConstant = (yytext[0] == 't');
 			                  return T_BoolConstant;}
 [-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)? { yylval.doubleConstant = strtof(yytext, NULL);
