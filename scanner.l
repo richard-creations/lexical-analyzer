@@ -57,7 +57,7 @@ int col_num = 1;
   */
 
 DIGIT    [0-9]
-ID       [a-z][a-z0-9]*
+ID       [_a-zA-Z][_a-zA-Z0-9]{0,30}
 LETTER   [a-zA-Z]
 
 %%             /* BEGIN RULES SECTION */
@@ -65,7 +65,8 @@ LETTER   [a-zA-Z]
   * %% markers which delimit the Rules section. 
   */ 
  /* --------------------- Keywords ------------------------------- */
-[ \t\n]+          /* ignore whitespace */
+ 
+/*[ \t\n]+           ignore whitespace */
 
 "="                 { return T_Equal;    }
 
@@ -95,6 +96,17 @@ LETTER   [a-zA-Z]
 
 "else"              { return T_Else;    }
 
+"New"               { return T_New; }
+
+"NewArray"          { return T_NewArray; }
+
+"break"             { return T_Break; }
+
+"extends"           { return T_Extends }
+
+"implements"        { return T_Implements }
+
+"interface"         { return T_Interface }
 
 [-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)? { yylval.doubleConstant = strtof(yytext, NULL);
                                                     return T_DoubleConstant; }
@@ -122,7 +134,8 @@ LETTER   [a-zA-Z]
 \"([^\\\"]|\\.)*\"  { yylval.stringConstant = yytext;
                       return T_StringConstant; }
 
-"@"		              { ReportError::UnrecogChar(&yylloc, yytext[0]);}
+
+"@"|"$"|"^"|"&"|"~"|"?"|"`"	{ ReportError::UnrecogChar(&yylloc, yytext[0]);}
 
 "\n"                { line_num++; col_num = 1; }
 
