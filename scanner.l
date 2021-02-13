@@ -108,7 +108,7 @@ LETTER   [a-zA-Z]
 
 "if"                { return T_If; }
 
-"+"|"-"|"\"|"<"     { return yytext[0]; }
+"+"|"-"     { return yytext[0]; }
 
 
 "true"|"false"	    { yylval.boolConstant = (yytext[0] == 't');
