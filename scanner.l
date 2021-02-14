@@ -136,7 +136,7 @@ LETTER   [a-zA-Z]
 
 .		                {;}
 
-\"([^\\\"]|\\.)*\"  { yylval->stringConstant = strdup(yytext);
+\"([^\\\"]|\\.)*\"  { yylval.stringConstant = strdup(yytext);
                       return T_StringConstant; }
 
 
