@@ -131,7 +131,7 @@ STRING      \"([^\\\"]|\\.)*\"
                         return T_DoubleConstant; }
 
 
-[-+]?{DIGIT}*\.{DIGIT}+?([eE][-+]?{DIGIT}+)? { yylval.doubleConstant = strtof(yytext, NULL);
+[-+]?{DIGIT}+\.{DIGIT}+?([eE][-+]?{DIGIT}+)? { yylval.doubleConstant = strtof(yytext, NULL);
                                                     return T_DoubleConstant; }
 
 
