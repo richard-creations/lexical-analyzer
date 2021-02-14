@@ -56,11 +56,13 @@ int col_num = 1;
   * entries in the Rules section later. 
   */
 
-DIGIT    [0-9]
-ID       [_a-zA-Z][_a-zA-Z0-9]{0,30}
-LETTER   [a-zA-Z]
-OPERATORS "+"|"-"|"*"|"/"|"'"|"<"|">"|")"|"("|"}"|"{"|"="|";"|"!"|"."|","
-INVALID "@"|"$"|"^"|"&"|"~"|"?"|"`"
+DIGIT       [0-9]
+HEX_DIGIT   0[xX][0-9a-fA-F]+
+ID          [_a-zA-Z][_a-zA-Z0-9]{0,30}
+LETTER      [a-zA-Z]
+OPERATORS   "+"|"-"|"*"|"/"|"'"|"<"|">"|")"|"("|"}"|"{"|"="|";"|"!"|"."|","
+INVALID     "@"|"$"|"^"|"&"|"~"|"?"|"`"
+STRING      \"([^\\\"]|\\.)*\"
 
 %%             /* BEGIN RULES SECTION */
  /* All patterns and actions should be placed between the start and stop
@@ -68,17 +70,17 @@ INVALID "@"|"$"|"^"|"&"|"~"|"?"|"`"
   */ 
  /* --------------------- Keywords ------------------------------- */
 
-"&&"                { return T_And;      }
+"&&"                { return T_And;     }
 
-"||"                { return T_Or;       }
+"||"                { return T_Or;      }
 
-"void"              { return T_Void;      }
+"void"              { return T_Void;    }
 
-"int"               { return T_Int;       }
+"int"               { return T_Int;     }
 
-"double"            { return T_Double;    }
+"double"            { return T_Double;  }
 
-"while"             { return T_While;     }
+"while"             { return T_While;   }
 
 "for"               { return T_For;     }
 
@@ -86,13 +88,13 @@ INVALID "@"|"$"|"^"|"&"|"~"|"?"|"`"
 
 "this"              { return T_This;    }
 
-"class"             { return T_Class;    }
+"class"             { return T_Class;   }
 
 "return"            { return T_Return;  }
 
 "else"              { return T_Else;    }
 
-"New"               { return T_New; }
+"New"               { return T_New;     }
 
 "NewArray"          { return T_NewArray; }
 
@@ -112,34 +114,32 @@ INVALID "@"|"$"|"^"|"&"|"~"|"?"|"`"
 
 "=="                { return T_Equal;}
 
-{OPERATORS}     { return yytext[0]; }
+{OPERATORS}         { return yytext[0]; }
 
 "true"|"false"	    { yylval.boolConstant = (yytext[0] == 't');
 			                  return T_BoolConstant;}
 
 {ID}                { strncpy(yylval.identifier, yytext, MaxIdentLen+1); return T_Identifier;  }
 
-0[xX][0-9a-fA-F]+   { yylval.integerConstant = (int)strtol(yytext, NULL, 0);;
-                        return T_IntConstant;  }
+{HEX_DIGIT}         { yylval.integerConstant = (int)strtol(yytext, NULL, 0);;
+                            return T_IntConstant;  }
 
-{DIGIT}+	         { yylval.integerConstant = atoi(yytext);
+{DIGIT}+	        { yylval.integerConstant = atoi(yytext);
 			                  return T_IntConstant;  }
 
 {DIGIT}+"."{DIGIT}* { yylval.doubleConstant = strtof(yytext, NULL);
                         return T_DoubleConstant; }
 
 
-[-+]?[0-9]*\.{DIGIT}+?([eE][-+]?[0-9]+)? { yylval.doubleConstant = strtof(yytext, NULL);
+[-+]?{DIGIT}*\.{DIGIT}+?([eE][-+]?{DIGIT}+)? { yylval.doubleConstant = strtof(yytext, NULL);
                                                     return T_DoubleConstant; }
 
 
-\"([^\\\"]|\\.)*\"  { yylval.stringConstant = strdup(yytext);
-                      return T_StringConstant; }
+{STRING}            { yylval.stringConstant = strdup(yytext);
+                        return T_StringConstant; }
 
 
-
-
-{INVALID}	{ ReportError::UnrecogChar(&yylloc, yytext[0]);}
+{INVALID}	        { ReportError::UnrecogChar(&yylloc, yytext[0]);}
 
 "\n"                { line_num++; col_num = 1; }
 
