@@ -59,6 +59,8 @@ int col_num = 1;
 DIGIT    [0-9]
 ID       [_a-zA-Z][_a-zA-Z0-9]{0,30}
 LETTER   [a-zA-Z]
+OPERATORS "+"|"-"|"*"|"/"|"'"|"<"|">"|")"|"("|"}"|"{"|"="|";"|"!"
+INVALID "@"|"$"|"^"|"&"|"~"|"?"|"`"
 
 %%             /* BEGIN RULES SECTION */
  /* All patterns and actions should be placed between the start and stop
@@ -110,8 +112,7 @@ LETTER   [a-zA-Z]
 
 "=="                { return T_Equal;}
 
-"+"|"-"|"*"|"/"|"'"|"<"|">"|")"|"("|"}"|"{"|"="|";"|"!"     { return yytext[0]; }
-
+{OPERATORS}     { return yytext[0]; }
 
 "true"|"false"	    { yylval.boolConstant = (yytext[0] == 't');
 			                  return T_BoolConstant;}
@@ -137,11 +138,12 @@ LETTER   [a-zA-Z]
                       return T_StringConstant; }
 
 
-"@"|"$"|"^"|"&"|"~"|"?"|"`"	{ ReportError::UnrecogChar(&yylloc, yytext[0]);}
+{INVALID}	{ ReportError::UnrecogChar(&yylloc, yytext[0]);}
 
 "\n"                { line_num++; col_num = 1; }
 
 .		                {;}
+
 %%
 /* The closing %% above marks the end of the Rules section and the beginning
  * of the User Subroutines section. All text from here to the end of the
