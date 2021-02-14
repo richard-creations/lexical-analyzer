@@ -59,7 +59,7 @@ int col_num = 1;
 DIGIT    [0-9]
 ID       [_a-zA-Z][_a-zA-Z0-9]{0,30}
 LETTER   [a-zA-Z]
-OPERATORS "+"|"-"|"*"|"/"|"'"|"<"|">"|")"|"("|"}"|"{"|"="|";"|"!"
+OPERATORS "+"|"-"|"*"|"/"|"'"|"<"|">"|")"|"("|"}"|"{"|"="|";"|"!"|"."
 INVALID "@"|"$"|"^"|"&"|"~"|"?"|"`"
 
 %%             /* BEGIN RULES SECTION */
@@ -112,7 +112,6 @@ INVALID "@"|"$"|"^"|"&"|"~"|"?"|"`"
 
 "=="                { return T_Equal;}
 
-{OPERATORS}     { return yytext[0]; }
 
 "true"|"false"	    { yylval.boolConstant = (yytext[0] == 't');
 			                  return T_BoolConstant;}
@@ -134,9 +133,12 @@ INVALID "@"|"$"|"^"|"&"|"~"|"?"|"`"
 [-+]?[0-9]*\.([eE][-+]?[0-9]+)? { yylval.doubleConstant = strtof(yytext, NULL);
                                                     return T_DoubleConstant; }
 
+
 \"([^\\\"]|\\.)*\"  { yylval.stringConstant = strdup(yytext);
                       return T_StringConstant; }
 
+
+{OPERATORS}     { return yytext[0]; }
 
 {INVALID}	{ ReportError::UnrecogChar(&yylloc, yytext[0]);}
 
