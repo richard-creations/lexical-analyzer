@@ -98,13 +98,13 @@ STRING      \"([^\\\"]|\\.)*\"
 
 "NewArray"          { return T_NewArray; }
 
-"break"             { return T_Break; }
+"break"             { return T_Break;    }
 
-"extends"           { return T_Extends; }
+"extends"           { return T_Extends;  }
 
 "implements"        { return T_Implements; }
 
-"interface"         { return T_Interface; }
+"interface"         { return T_Interface;  }
 
 "if"                { return T_If; }
 
@@ -112,7 +112,7 @@ STRING      \"([^\\\"]|\\.)*\"
 
 ">="                { return T_GreaterEqual;}
 
-"=="                { return T_Equal;}
+"=="                { return T_Equal;   }
 
 {OPERATORS}         { return yytext[0]; }
 
@@ -140,17 +140,17 @@ STRING      \"([^\\\"]|\\.)*\"
 [-+]?{DIGIT}+\.{DIGIT}+?([eE][-+]?{DIGIT}+)? { yylval.doubleConstant = strtof(yytext, NULL);
                                                     return T_DoubleConstant; }
 
-\"([^\\\"]|\\.)*\n    { ReportError::UntermString(&yylloc, yytext); } 
+\"([^\\\"]|\\.)*\n  { ReportError::UntermString(&yylloc, yytext); } 
 
 {STRING}            { yylval.stringConstant = strdup(yytext);
                         return T_StringConstant; }
 
-
+ 
 {INVALID}	        { ReportError::UnrecogChar(&yylloc, yytext[0]);}
 
 "\n"                { line_num++; col_num = 1; }
 
-.		                {;}
+.		            {;}
 
 %%
 /* The closing %% above marks the end of the Rules section and the beginning
