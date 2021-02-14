@@ -58,7 +58,7 @@ int col_num = 1;
 
 DIGIT       [0-9]
 HEX_DIGIT   0[xX][0-9a-fA-F]+
-ID          [_a-zA-Z][_a-zA-Z0-9]
+ID          [_a-zA-Z][_a-zA-Z0-9]+
 LETTER      [a-zA-Z]
 OPERATORS   "+"|"-"|"*"|"/"|"'"|"<"|">"|")"|"("|"}"|"{"|"="|";"|"!"|"."|","
 INVALID     "@"|"$"|"^"|"&"|"~"|"?"|"`"
