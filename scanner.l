@@ -129,7 +129,7 @@ INVALID "@"|"$"|"^"|"&"|"~"|"?"|"`"
                         return T_DoubleConstant; }
 
 
-[-+]?[0-9]*\.([eE][-+]?[0-9]+)? { yylval.doubleConstant = strtof(yytext, NULL);
+[-+]?[0-9]*\.{DIGIT}+?([eE][-+]?[0-9]+)? { yylval.doubleConstant = strtof(yytext, NULL);
                                                     return T_DoubleConstant; }
 
 
