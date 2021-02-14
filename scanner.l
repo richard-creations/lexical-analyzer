@@ -110,13 +110,11 @@ LETTER   [a-zA-Z]
 
 "=="                { return T_Equal;}
 
-"+"|"-"|"*"|"/"|"'"|"<"|">"|")"|"("|"}"|"{"|"="     { return yytext[0]; }
+"+"|"-"|"*"|"/"|"'"|"<"|">"|")"|"("|"}"|"{"|"="|";"     { return yytext[0]; }
 
 
 "true"|"false"	    { yylval.boolConstant = (yytext[0] == 't');
 			                  return T_BoolConstant;}
-
-
 
 {ID}                { return T_Identifier;  }
 
@@ -135,7 +133,6 @@ LETTER   [a-zA-Z]
 [-+]?[0-9]*\.([eE][-+]?[0-9]+)? { yylval.doubleConstant = strtof(yytext, NULL);
                                                     return T_DoubleConstant; }
 
-.		                {;}
 
 \"([^\\\"]|\\.)*\"  { yylval.stringConstant = strdup(yytext);
                       return T_StringConstant; }
