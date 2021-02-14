@@ -110,18 +110,18 @@ LETTER   [a-zA-Z]
 
 "=="                { return T_Equal;}
 
-"+"|"-"|"*"|"/"|"'"|"<"|">"|")"|"("|"}"|"{"|"="|";"     { return yytext[0]; }
+"+"|"-"|"*"|"/"|"'"|"<"|">"|")"|"("|"}"|"{"|"="|";"|"!"     { return yytext[0]; }
 
 
 "true"|"false"	    { yylval.boolConstant = (yytext[0] == 't');
 			                  return T_BoolConstant;}
 
-{ID}                { return T_Identifier;  }
+{ID}                { strncpy(yylval.identifier, yytext, 3); return T_Identifier;  }
 
 0[xX][0-9a-fA-F]+   { yylval.integerConstant = (int)strtol(yytext, NULL, 0);;
                         return T_IntConstant;  }
 
-{DIGIT}+	          { yylval.integerConstant = atoi(yytext);
+{DIGIT}+	         { yylval.integerConstant = atoi(yytext);
 			                  return T_IntConstant;  }
 
 {DIGIT}+"."{DIGIT}* { yylval.doubleConstant = strtof(yytext, NULL);
