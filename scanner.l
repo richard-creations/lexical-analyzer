@@ -121,8 +121,7 @@ LETTER   [a-zA-Z]
 [-+]?[0-9]*\.([eE][-+]?[0-9]+)? { yylval.doubleConstant = strtof(yytext, NULL);
                                                     return T_DoubleConstant; }
 
-{ID}                { /*yylval.identifier = strdup(yytext); */
-			                  return T_Identifier;  }
+{ID}                { return T_Identifier;  }
 
 0[xX][0-9a-fA-F]+   { yylval.integerConstant = (int)strtol(yytext, NULL, 0);;
                         return T_IntConstant;  }
@@ -137,7 +136,7 @@ LETTER   [a-zA-Z]
 
 .		                {;}
 
-\"([^\\\"]|\\.)*\"  { yylval.stringConstant = yytext;
+\"([^\\\"]|\\.)*\"  { yylval->stringConstant = strdup(yytext);
                       return T_StringConstant; }
 
 
