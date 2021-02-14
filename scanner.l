@@ -115,11 +115,8 @@ LETTER   [a-zA-Z]
 
 "true"|"false"	    { yylval.boolConstant = (yytext[0] == 't');
 			                  return T_BoolConstant;}
-[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)? { yylval.doubleConstant = strtof(yytext, NULL);
-                                                    return T_DoubleConstant; }
 
-[-+]?[0-9]*\.([eE][-+]?[0-9]+)? { yylval.doubleConstant = strtof(yytext, NULL);
-                                                    return T_DoubleConstant; }
+
 
 {ID}                { return T_Identifier;  }
 
@@ -132,7 +129,11 @@ LETTER   [a-zA-Z]
 {DIGIT}+"."{DIGIT}* { yylval.doubleConstant = strtof(yytext, NULL);
                         return T_DoubleConstant; }
 
+[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)? { yylval.doubleConstant = strtof(yytext, NULL);
+                                                    return T_DoubleConstant; }
 
+[-+]?[0-9]*\.([eE][-+]?[0-9]+)? { yylval.doubleConstant = strtof(yytext, NULL);
+                                                    return T_DoubleConstant; }
 
 .		                {;}
 
