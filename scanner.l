@@ -119,7 +119,15 @@ STRING      \"([^\\\"]|\\.)*\"
 "true"|"false"	    { yylval.boolConstant = (yytext[0] == 't');
 			                  return T_BoolConstant;}
 
-{ID}                { strncpy(yylval.identifier, yytext, MaxIdentLen+1); return T_Identifier;  }
+{ID}                {  if( strlen(yytext) > 30 )
+                        {   
+                            ReportError::LongIdentifier(&yylloc, yytext); 
+                        }else
+                        {
+                            strncpy(yylval.identifier, yytext, MaxIdentLen+1);
+                            return T_Identifier;
+                        }
+                    }
 
 {HEX_DIGIT}         { yylval.integerConstant = (int)strtol(yytext, NULL, 0);;
                             return T_IntConstant;  }
