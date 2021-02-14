@@ -133,7 +133,6 @@ LETTER   [a-zA-Z]
 [-+]?[0-9]*\.([eE][-+]?[0-9]+)? { yylval.doubleConstant = strtof(yytext, NULL);
                                                     return T_DoubleConstant; }
 
-
 \"([^\\\"]|\\.)*\"  { yylval.stringConstant = strdup(yytext);
                       return T_StringConstant; }
 
@@ -142,6 +141,7 @@ LETTER   [a-zA-Z]
 
 "\n"                { line_num++; col_num = 1; }
 
+.		                {;}
 %%
 /* The closing %% above marks the end of the Rules section and the beginning
  * of the User Subroutines section. All text from here to the end of the
