@@ -128,8 +128,8 @@ INVALID "@"|"$"|"^"|"&"|"~"|"?"|"`"
 {DIGIT}+"."{DIGIT}* { yylval.doubleConstant = strtof(yytext, NULL);
                         return T_DoubleConstant; }
 
-[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)? { yylval.doubleConstant = strtof(yytext, NULL);
-                                                    return T_DoubleConstant; }
+/*[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)? { yylval.doubleConstant = strtof(yytext, NULL);*/
+                                               /*     return T_DoubleConstant; } */
 
 [-+]?[0-9]*\.([eE][-+]?[0-9]+)? { yylval.doubleConstant = strtof(yytext, NULL);
                                                     return T_DoubleConstant; }
