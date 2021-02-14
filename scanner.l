@@ -112,6 +112,7 @@ INVALID "@"|"$"|"^"|"&"|"~"|"?"|"`"
 
 "=="                { return T_Equal;}
 
+{OPERATORS}     { return yytext[0]; }
 
 "true"|"false"	    { yylval.boolConstant = (yytext[0] == 't');
 			                  return T_BoolConstant;}
@@ -138,7 +139,7 @@ INVALID "@"|"$"|"^"|"&"|"~"|"?"|"`"
                       return T_StringConstant; }
 
 
-{OPERATORS}     { return yytext[0]; }
+
 
 {INVALID}	{ ReportError::UnrecogChar(&yylloc, yytext[0]);}
 
