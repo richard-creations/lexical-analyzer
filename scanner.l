@@ -140,7 +140,7 @@ STRING      \"([^\\\"]|\\.)*\"
 [-+]?{DIGIT}+\.{DIGIT}+?([eE][-+]?{DIGIT}+)? { yylval.doubleConstant = strtof(yytext, NULL);
                                                     return T_DoubleConstant; }
 
-\"([^\\\"]|\\.)*\n  { ReportError::UntermString(&yylloc, yytext); } 
+\"([^\\\"]|\\.)*$(?![\r\n])  { ReportError::UntermString(&yylloc, yytext); } 
 
 {STRING}            { yylval.stringConstant = strdup(yytext);
                         return T_StringConstant; }
