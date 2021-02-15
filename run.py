@@ -11,7 +11,7 @@ def go():
         filename, file_extension = path.splitext(file)
         name = filename.split("/")
         output = name[len(name) - 1]
-        cmd = "dcc < ./samples/"+output+".frag > ./result/"+output+".out"
+        cmd = "dcc < ./samples/"+output+".frag > ./results/"+output+".out"
         subprocess.Popen(cmd, shell=True)
 
     onlyfiles = [y for x in walk("./samples")
@@ -20,7 +20,7 @@ def go():
         filename, file_extension = path.splitext(file)
         name = filename.split("/")
         output = name[len(name) - 1]
-        cmd = "dcc < ./samples/"+output+".decaf > ./result/"+output+".out"
+        cmd = "dcc < ./samples/"+output+".decaf > ./results/"+output+".out"
         subprocess.Popen(cmd, shell=True)
 
 go()
