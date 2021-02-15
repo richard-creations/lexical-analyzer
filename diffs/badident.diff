@@ -1,0 +1,8 @@
+12,16c12
+< 
+< *** Error line 5.
+< *** Identifier too long: "variable_whose_name_is_much_too_long"
+< 
+< variable_whose_name_is_much_too_long line 5 cols 1-36 is T_Identifier (truncated to variable_whose_name_is_much_too)
+---
+> variable_whose_name_is_much_too_long line 5 cols 1-36 is T_Identifier (truncated to variable_whose_name_is_much_too_)

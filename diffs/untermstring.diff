@@ -1,0 +1,8 @@
+3,4c3,6
+< "sd
+< "my name is
+---
+> " line 1 cols 1-14 is T_StringConstant (value = "hello
+> hello
+> ")
+> sd           line 1 cols 15-16 is T_Identifier 
