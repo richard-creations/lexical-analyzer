@@ -5,7 +5,7 @@ import subprocess
 
 def differ():
     onlyfiles = [y for x in walk("./samples")
-                 for y in glob(path.join(x[0], '*.frag'))]
+                 for y in glob(path.join(x[0], '*.out'))]
     for file in onlyfiles:
         filename, file_extension = path.splitext(file)
         name = filename.split("/")
