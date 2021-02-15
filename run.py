@@ -11,10 +11,9 @@ def go():
         filename, file_extension = path.splitext(file)
         name = filename.split("/")
         output = name[len(name) - 1]
-        cmd = "dcc < samples/+"+output+".frag > /solutions/"+output+".out"
+        cmd = "dcc < samples/"+output+".frag > /solutions/"+output+".out"
         subprocess.Popen(cmd, shell=True)
 
 
 
 go()
-
