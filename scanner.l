@@ -130,10 +130,10 @@ STRING      \"([^\\\"]|\\.)*\"
 {HEX_DIGIT}         { yylval.integerConstant = (int)strtol(yytext, NULL, 0);;
                             return T_IntConstant;  }
 
-{DIGIT}+	        { yylval.integerConstant = atoi(yytext);
+[-]?{DIGIT}+	        { yylval.integerConstant = atoi(yytext);
 			                  return T_IntConstant;  }
 
-{DIGIT}+"."{DIGIT}* { yylval.doubleConstant = strtof(yytext, NULL);
+[-]?{DIGIT}+"."{DIGIT}* { yylval.doubleConstant = strtof(yytext, NULL);
                         return T_DoubleConstant; }
 
 
