@@ -3,14 +3,12 @@ from os.path import isfile, join, splitext
 from glob import glob
 import subprocess
 
-def differ():
+def go():
     onlyfiles = [y for x in walk("./samples")
-                 for y in glob(path.join(x[0], '*.frag'))]
+                 for y in glob(path.join(x[0], '*.out'))]
     for file in onlyfiles:
         filename, file_extension = path.splitext(file)
         name = filename.split("/")
         output = name[len(name) - 1]
-        cmd = "diff ./samples/"+output+".frag  ./result/"+output+".out > ./diffs/"+output+".diff"
+        cmd = "dcc < ./samples/"+output+".out > ./result/"+output+".out"
         subprocess.Popen(cmd, shell=True)
-
-differ()
