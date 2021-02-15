@@ -11,7 +11,7 @@ def run():
         filename, file_extension = path.splitext(file)
         name = filename.split("/")
         output = name[len(name) - 1]
-        cmd = f"dcc < samples/{output}.frag > /solutions/"+output+".out"
+        cmd = "dcc < samples/+"output+".frag > /solutions/"+output+".out"
         subprocess.run(cmd, shell=True)
         #proc = subprocess.run(cmd, shell=True)
 
