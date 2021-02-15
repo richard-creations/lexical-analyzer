@@ -123,7 +123,7 @@ STRING      \"([^\\\"]|\\.)*\"
                         {   
                             ReportError::LongIdentifier(&yylloc, yytext); 
                         }
-                        strncpy(yylval.identifier, yytext, MaxIdentLen+1);
+                        strncpy(yylval.identifier, yytext, MaxIdentLen);
                         return T_Identifier;   
                     }
 
