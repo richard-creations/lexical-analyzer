@@ -1,3 +1,8 @@
+from os import listdir, path, walk
+from os.path import isfile, join, splitext
+from glob import glob
+import subprocess
+
 def differ():
     onlyfiles = [y for x in walk("./samples")
                  for y in glob(path.join(x[0], '*.frag'))]
