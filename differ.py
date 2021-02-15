@@ -5,7 +5,7 @@ def differ():
         filename, file_extension = path.splitext(file)
         name = filename.split("/")
         output = name[len(name) - 1]
-        cmd = "diff < ./samples/"+output+".frag  ./result/"+output+".out > ./diffs/"+output+".diff
+        cmd = "diff < ./samples/"+output+".frag  ./result/"+output+".out > ./diffs/"+output+".diff"
         subprocess.Popen(cmd, shell=True)
 
 differ()
