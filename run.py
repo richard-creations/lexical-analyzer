@@ -4,7 +4,7 @@ from glob import glob
 import subprocess
 
 
-def run():
+def go():
     onlyfiles = [y for x in walk("./samples")
                  for y in glob(path.join(x[0], '*.frag'))]
     for file in onlyfiles:
@@ -17,4 +17,4 @@ def run():
 
 
 
-run()
+go()
