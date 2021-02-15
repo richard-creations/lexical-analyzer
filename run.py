@@ -12,9 +12,9 @@ def go():
         name = filename.split("/")
         output = name[len(name) - 1]
         cmd = "dcc < samples/+"+output+".frag > /solutions/"+output+".out"
-        subprocess.run(cmd, shell=True)
-        proc = subprocess.Popen(cmd, shell=True)
+        subprocess.Popen(cmd, shell=True)
 
 
 
 go()
+
