@@ -1,0 +1,5 @@
+11,12c11
+< -            line 6 cols 7-7 is '-' 
+< 2            line 6 cols 8-8 is T_IntConstant (value = 2)
+---
+> -2           line 6 cols 7-8 is T_IntConstant (value = -2)

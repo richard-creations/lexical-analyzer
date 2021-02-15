@@ -1,8 +1,9 @@
-12,16c12
+10,15c10
+< -            line 4 cols 4-4 is '-' 
+< 123          line 4 cols 5-7 is T_IntConstant (value = 123)
 < 
 < *** Error line 5.
 < *** Identifier too long: "variable_whose_name_is_much_too_long"
 < 
-< variable_whose_name_is_much_too_long line 5 cols 1-36 is T_Identifier (truncated to variable_whose_name_is_much_too)
 ---
-> variable_whose_name_is_much_too_long line 5 cols 1-36 is T_Identifier (truncated to variable_whose_name_is_much_too_)
+> -123         line 4 cols 4-7 is T_IntConstant (value = -123)
