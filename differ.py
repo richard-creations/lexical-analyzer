@@ -12,3 +12,4 @@ def differ():
         output = name[len(name) - 1]
         cmd = "diff ./samples/"+output+".out  ./result/"+output+".out > ./diffs/"+output+".diff"
         subprocess.Popen(cmd, shell=True)
+differ()
